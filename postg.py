@@ -11,23 +11,19 @@ debug = True
 
 def fetcher(conn, cur, cmd="SELECT * FROM usertable;", cond='one'):
     try:
-        # SELECT cmd here
-        cur.execute(cmd)
-        print('--success',cur.rowcount)
-        if cond == 'one':
-            data = cur.fetchone()
-        else:
-            data = cur.fetchall()
-        return data
-
-        # for row in data:
-        #     print(row)
-        #     print("Id = ", row[0], )
-        #     print("name = ", row[1])
-        #     print("pass  = ", row[2], "\n")
-        
-        # l = [x for x in data]
-        # print(l)
+  
+        if cmd[0] == 'I':   # INSERT cmd here
+            cur.execute(cmd)
+            conn.commit()
+            return "Inserted"
+        else:               # SELECT cmd here
+            cur.execute(cmd)
+            print('--success',cur.rowcount)
+            if cond == 'one':
+                data = cur.fetchone()
+            else:
+                data = cur.fetchall()
+            return data
 
     except Exception as e:
         print('--error')
@@ -46,3 +42,6 @@ def pg(cmd="SELECT * FROM usertable;",cond='one'):
     print("pg exit")
         
     return data
+
+# print(pg(cmd="INSERT INTO usertable VALUES(5,'Hack','hack');"))
+# print(pg(cond='all'))
