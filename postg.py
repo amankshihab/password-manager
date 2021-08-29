@@ -1,8 +1,6 @@
 import psycopg2
 import os
 from dotenv import load_dotenv
-import time
-
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
@@ -37,16 +35,14 @@ def fetcher(conn, cur, cmd="SELECT * FROM usertable;", cond='one'):
 
 
 def pg(cmd="SELECT * FROM usertable;",cond='one'):
-    if debug:
-        # while True:
-        print("connecting to DB")
-        conn = psycopg2.connect(DATABASE_URL, user=U_NAME, password=P_WORD)
-        cur = conn.cursor()
-        print("Loading function")
-        data = fetcher(conn, cur, cmd, cond)
-        print("Closing DB")
-        cur.close()
-        conn.close()
-        print("pg exit")
+    print("connecting to DB")
+    conn = psycopg2.connect(DATABASE_URL, user=U_NAME, password=P_WORD)
+    cur = conn.cursor()
+    print("Loading function")
+    data = fetcher(conn, cur, cmd, cond)
+    print("Closing DB")
+    cur.close()
+    conn.close()
+    print("pg exit")
         
     return data
