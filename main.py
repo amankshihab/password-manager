@@ -6,7 +6,7 @@ root.title("Password Manager")
 root.geometry("500x600")
 root.configure(background='black')
 
-lobsterFont = Font(family='Lobster', size=40)
+lobsterFont = Font(family='Lobster Regular', size=40)
 opensansSemiBold = Font(family='OpenSans-SemiBold', size=10)
 
 # frame = Frame(root)
@@ -14,7 +14,7 @@ opensansSemiBold = Font(family='OpenSans-SemiBold', size=10)
 
 titleLabel = Label(root, text="PassMan")
 titleLabel.place(relx=0.5, rely=0.28, anchor=CENTER)
-titleLabel.configure(font=lobsterFont,background='black')
+titleLabel.configure(font=lobsterFont,background='black', fg='white')
 
 usernameLabel = Label(root, text="Username")
 usernameLabel.configure(background='black', font=opensansSemiBold)
