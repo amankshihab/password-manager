@@ -16,6 +16,8 @@ def connect():
     try:
         conn = psycopg2.connect(database=U_NAME, user=U_NAME,
                                 password=P_WORD, host=DATABASE_URL, port="5432")
+
+        result = True
     except:
         result = False
 
@@ -48,3 +50,16 @@ def fetchPassword(userid):
         return cur.fetchall()
     else:
         return None
+
+
+def makeUser(username, password):
+
+    cur, result = connect()
+
+    if not result:
+        cur.execute(f'INSERT INTO usertable(name, pass) VALUES (\'{username}\', \'{password}\');') 
+    else:
+        print("asdasd")
+
+
+

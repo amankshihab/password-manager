@@ -41,6 +41,21 @@ def password():
             return render_template('password.html', text="No Passwords found!")
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    pass
+    
+    if request.method == 'POST':
+        # from postg.py gets the user login from the database
+        if request.form["username"] != '':
+            if request.form["passw"] == request.form['confirmpass']:
+                postg.makeUser(request.form['username'], request.form['passw'])
+                return redirect('/')
+
+    return render_template('register.html')
+
+
+
+
+
+
+
