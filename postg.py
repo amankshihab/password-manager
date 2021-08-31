@@ -14,8 +14,8 @@ def connect():
     result = False
 
     try:
-        conn = psycopg2.connect(database="alzeioel", user="alzeioel",
-                                password="6_584p-Q3AmeqjzSjG1A-kfFIxmhOwWg", host="john.db.elephantsql.com", port="5432")
+        conn = psycopg2.connect(database=U_NAME, user=U_NAME,
+                                password=P_WORD, host=DATABASE_URL, port="5432")
         result = True
     except Exception as e:
         print(e)
