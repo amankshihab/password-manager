@@ -9,39 +9,42 @@ P_WORD = os.getenv('P_WORD')
 debug = True
 
 
-def fetcher(conn, cur, cmd="SELECT * FROM usertable;", cond='one'):
-    try:
-  
-        if cmd[0] == 'I':   # INSERT cmd here
-            cur.execute(cmd)
-            conn.commit()
-            return "Inserted"
-        else:               # SELECT cmd here
-            cur.execute(cmd)
-            print('--success',cur.rowcount)
-            if cond == 'one':
-                data = cur.fetchone()
-            else:
-                data = cur.fetchall()
-            return data
+def connect():
 
-    except Exception as e:
-        print('--error')
+    result = False
+
+    try:
+        conn = psycopg2.connect(database=U_NAME, user=U_NAME,
+                                password=P_WORD, host=DATABASE_URL, port="5432")
+    except:
+        result = False
+
+    return conn.cursor(), result
+
+
+def fetchLogin(username):
+
+    cur, result = connect()
+
+    if not result:
+        cur.execute(f"SELECT * FROM usertable WHERE name='{username}';")
+
+        to_return = cur.fetchone()
+        # cur.close()
+
+        return to_return
+
+    else:
         return None
 
 
-def pg(cmd="SELECT * FROM usertable;",cond='one'):
-    print("connecting to DB")
-    conn = psycopg2.connect(DATABASE_URL, user=U_NAME, password=P_WORD)
-    cur = conn.cursor()
-    print("Loading function")
-    data = fetcher(conn, cur, cmd, cond)
-    print("Closing DB")
-    cur.close()
-    conn.close()
-    print("pg exit")
-        
-    return data
+def fetchPassword(userid):
 
-# print(pg(cmd="INSERT INTO usertable VALUES(5,'Hack','hack');"))
-# print(pg(cond='all'))
+    cur, result = connect()
+
+    if not result:
+        cur.execute(f'SELECT * FROM passtable WHERE id=\'{userid}\';')
+
+        return cur.fetchall()
+    else:
+        return None
