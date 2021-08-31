@@ -1,23 +1,47 @@
 {% extends "./index.html" %} {% block content %}
 <div class="loginform">
-  <form action="" method="post">
-    <input
-      type="text"
-      placeholder="Username"
-      name="username"
-      value="{{ request.form.username }}"
-    />
-    <input
-      type="password"
-      placeholder="Password"
-      name="password"
-      value="{{ request.form.password }}"
-    />
-    <input type="submit" value="Login" />
-  </form>
-</div>
-{% if error %}
-<div class="error">
-  <p>{{ error }}</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <h1>PassMan</h1>
+      </div>
+      <div class="buffer"></div>
+      <form action="" method="post" class="child">
+        <div class="col-sm text-center">
+          <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            value="{{ request.form.username }}"
+          />
+        </div>
+        <div class="buffer"></div>
+        <div class="col-sm text-center">
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            value="{{ request.form.password }}"
+          />
+        </div>
+        <div class="buffer"></div>
+        <div class="col-sm text-center">
+          <input type="submit" value="Login" class="btn" />
+        </div>
+        <div class="buffer"></div>
+      </form>
+    </div>
+    <div class="row">
+      <p class="text-center">
+        Not a user? <a href="{{ url_for('register') }}">Register now</a>
+      </p>
+    </div>
+  </div>
+  {% if error %}
+  <div class="row">
+    <div class="col col-sm-12 col-md-12 col-lg-12 text-center">
+      <div class="alert alert-danger" role="alert">{{ error }}</div>
+    </div>
+  </div>
 </div>
 {% endif %} {% endblock %}

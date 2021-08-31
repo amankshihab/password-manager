@@ -1,5 +1,5 @@
 from logging import error
-from flask import Flask, request, render_template, sessions
+from flask import Flask, request, render_template, sessions, url_for
 from werkzeug.utils import redirect
 
 import postg
@@ -39,3 +39,8 @@ def password():
 
         else:
             return render_template('password.html', text="No Passwords found!")
+
+
+@app.route('/register')
+def register():
+    pass
