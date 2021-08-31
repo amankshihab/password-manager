@@ -43,19 +43,12 @@ def password():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    
+
     if request.method == 'POST':
         # from postg.py gets the user login from the database
-        if request.form["username"] != '':
-            if request.form["passw"] == request.form['confirmpass']:
+        if request.form['username'] != '':
+            if request.form['passw'] == request.form['confirmpass']:
                 postg.makeUser(request.form['username'], request.form['passw'])
                 return redirect('/')
 
     return render_template('register.html')
-
-
-
-
-
-
-

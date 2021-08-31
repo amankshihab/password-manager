@@ -14,21 +14,21 @@ def connect():
     result = False
 
     try:
-        conn = psycopg2.connect(database=U_NAME, user=U_NAME,
-                                password=P_WORD, host=DATABASE_URL, port="5432")
-
+        conn = psycopg2.connect(database="alzeioel", user="alzeioel",
+                                password="6_584p-Q3AmeqjzSjG1A-kfFIxmhOwWg", host="john.db.elephantsql.com", port="5432")
         result = True
-    except:
+    except Exception as e:
+        print(e)
         result = False
 
-    return conn.cursor(), result
+    return conn, conn.cursor(), result
 
 
 def fetchLogin(username):
 
-    cur, result = connect()
+    _, cur, result = connect()
 
-    if not result:
+    if result:
         cur.execute(f"SELECT * FROM usertable WHERE name='{username}';")
 
         to_return = cur.fetchone()
@@ -42,9 +42,9 @@ def fetchLogin(username):
 
 def fetchPassword(userid):
 
-    cur, result = connect()
+    _, cur, result = connect()
 
-    if not result:
+    if result:
         cur.execute(f'SELECT * FROM passtable WHERE id=\'{userid}\';')
 
         return cur.fetchall()
@@ -54,12 +54,14 @@ def fetchPassword(userid):
 
 def makeUser(username, password):
 
-    cur, result = connect()
+    conn, cur, result = connect()
 
-    if not result:
-        cur.execute(f'INSERT INTO usertable(name, pass) VALUES (\'{username}\', \'{password}\');') 
+    print(
+        f'INSERT INTO usertable(name, pass) VALUES (\'{username}\', \'{password}\');')
+
+    if result:
+        cur.execute(
+            f'INSERT INTO usertable(name, pass) VALUES (\'{username}\', \'{password}\');')
+        conn.commit()
     else:
         print("asdasd")
-
-
-
